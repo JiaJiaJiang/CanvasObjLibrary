@@ -756,7 +756,6 @@ const COL_Class={
 		return class TextGraph extends host.class.FunctionGraph{
 			constructor(text=''){
 				super();
-				//this._cache=null;
 				this._fontString='';
 				this._renderList=null;
 				this.autoSize=true;
