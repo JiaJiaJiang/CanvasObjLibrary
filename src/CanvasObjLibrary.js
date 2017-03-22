@@ -772,13 +772,13 @@ const COL_Class={
 				if(!this._cache && !this.realtimeRender){
 					defProp(this,'_cache',{value:document.createElement("canvas")});
 				}
-				let font = "";
-				(this.font.fontStyle)&&(font = this.font.fontStyle);
-				(this.font.fontVariant)&&(font =`${font} ${this.font.fontVariant}`);
-				(this.font.fontWeight)&&(font =`${font} ${this.font.fontWeight}`);
-				font =`${font} ${this.font.fontSize}px`;
-				(this.font.fontFamily)&&(font =`${font} ${this.font.fontFamily}`);
-				this._fontString = font;
+				let ta=[];
+				(this.font.fontStyle)&&ta.push(this.font.fontStyle);
+				(this.font.fontVariant)&&ta.push(this.font.fontVariant);
+				(this.font.fontWeight)&&ta.push(this.font.fontWeight);
+				ta.push(`${this.font.fontSize}px`);
+				(this.font.fontFamily)&&ta.push(this.font.fontFamily);
+				this._fontString = ta.join(' ');
 
 				if(this.realtimeRender)return;
 				const imgobj = this._cache,ct = (imgobj.ctx2d||(imgobj.ctx2d=imgobj.getContext("2d")));
