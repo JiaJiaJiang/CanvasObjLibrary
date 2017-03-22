@@ -114,7 +114,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			}, {
 				key: "clone",
 				value: function clone() {
-					return Mat(this.row, this.column).set(this);
+					return Mat(this.row, this.column, this);
 				}
 			}, {
 				key: "toString",
@@ -346,6 +346,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		}
 		Object.setPrototypeOf(Mat, staticMethods);
 		Mat.Matrixes = { //do not modify these matrixes manually and dont use them
+			I2: Mat.Identity(2),
 			I3: Mat.Identity(3),
 			I4: Mat.Identity(4),
 			T3: Mat(3, 3, 0),
@@ -796,9 +797,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 },{"_process":6}],4:[function(require,module,exports){
 /*
 MIT LICENSE
-Copyright (c) 2016 iTisso
+Copyright (c) 2017 iTisso
 https://github.com/iTisso/CanvasObjLibrary
-varsion:2.0
+varsion:2.1
 */
 'use strict';
 
@@ -892,7 +893,6 @@ var CanvasObjLibrary = function () {
 					rotate: 0,
 					rotatePointX: 0,
 					rotatePointY: 0,
-					_translateMat: _Mat2.default.Identity(3),
 					_tempMat: _Mat2.default.Identity(3)
 				}
 			},
@@ -1930,13 +1930,13 @@ var COL_Class = {
 					if (!this._cache && !this.realtimeRender) {
 						defProp(this, '_cache', { value: document.createElement("canvas") });
 					}
-					var font = "";
-					this.font.fontStyle && (font = this.font.fontStyle);
-					this.font.fontVariant && (font = font + ' ' + this.font.fontVariant);
-					this.font.fontWeight && (font = font + ' ' + this.font.fontWeight);
-					font = font + ' ' + this.font.fontSize + 'px';
-					this.font.fontFamily && (font = font + ' ' + this.font.fontFamily);
-					this._fontString = font;
+					var ta = [];
+					this.font.fontStyle && ta.push(this.font.fontStyle);
+					this.font.fontVariant && ta.push(this.font.fontVariant);
+					this.font.fontWeight && ta.push(this.font.fontWeight);
+					ta.push(this.font.fontSize + 'px');
+					this.font.fontFamily && ta.push(this.font.fontFamily);
+					this._fontString = ta.join(' ');
 
 					if (this.realtimeRender) return;
 					var imgobj = this._cache,
@@ -2055,15 +2055,6 @@ function addEvents(target) {
 	for (var e in events) {
 		target.addEventListener(e, events[e]);
 	}
-}
-
-function multiplyMatrix(m1, m2, r) {
-	r[0] = m1[0] * m2[0] + m1[1] * m2[3];
-	r[1] = m1[0] * m2[1] + m1[1] * m2[4];
-	r[2] = m1[0] * m2[2] + m1[1] * m2[5] + m1[2];
-	r[3] = m1[3] * m2[0] + m1[4] * m2[3];
-	r[4] = m1[3] * m2[1] + m1[4] * m2[4];
-	r[5] = m1[3] * m2[2] + m1[4] * m2[5] + m1[5];
 }
 
 //code from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
