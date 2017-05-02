@@ -788,7 +788,7 @@ const COL_Class={
 					this.font.strokeWidth+3
 				);
 				if (this.autoSize) {
-					let w = 0,tw,lh=(typeof this.font.lineHeigh ==='number')?this.font.lineHeigh:this.font.fontSize;
+					let w = 0,tw,lh=(typeof this.font.lineHeight ==='number')?this.font.lineHeight:this.font.fontSize;
 					for (let i = this._renderList.length; i -- ;) {
 						tw = ct.measureText(this._renderList[i]).width;
 						(tw>w)&&(w=tw);//max
@@ -819,7 +819,7 @@ const COL_Class={
 				if(!this._renderList)return;
 				ct.save();
 				ct.font=this._fontString;//set font
-				ct.textBaseline = 'top';
+				ct.textBaseline = 'middle';
 				ct.lineWidth = this.font.strokeWidth;
 				ct.fillStyle = this.font.color;
 				ct.strokeStyle = this.font.strokeColor;
@@ -828,7 +828,7 @@ const COL_Class={
 				ct.shadowOffsetX = this.font.shadowOffsetX;
 				ct.shadowOffsetY = this.font.shadowOffsetY;
 				ct.textAlign = this.font.textAlign;
-				let lh=(typeof this.font.lineHeigh ==='number')?this.font.lineHeigh:this.font.fontSize,
+				let lh=(typeof this.font.lineHeight ==='number')?this.font.lineHeight:this.font.fontSize,
 					x;
 				switch(this.font.textAlign){
 					case 'left':case 'start':{
@@ -843,8 +843,8 @@ const COL_Class={
 				}
 
 				for (let i = this._renderList.length;i--;) {
-					this.font.strokeWidth&&ct.strokeText(this._renderList[i],x,lh*i);
-					this.font.fill&&ct.fillText(this._renderList[i],x, lh*i);
+					this.font.strokeWidth&&ct.strokeText(this._renderList[i],x,lh*(i+0.5));
+					this.font.fill&&ct.fillText(this._renderList[i],x, lh*(i+0.5));
 				}
 				ct.restore();
 			}

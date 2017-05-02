@@ -46,3 +46,4 @@ gulp.task('min',['build'],function(){
 });
 
 gulp.task('release',['build','min']);
+gulp.task('default',['release']);
